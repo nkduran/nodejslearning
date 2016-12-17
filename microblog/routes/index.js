@@ -11,13 +11,14 @@ router.get('/', function(req, res, next) {
   });
 });
 
+/*
 router.get('/hello', function(req, res, next) {
   res.send('The time is ' + new Date().toString());
 });
 
 router.get('/user/:username', function(req, res, next) {
   res.send('user: ' + req.params.username);
-});
+});*/
 
 //for microblog
 router.get('/u/:user', function(req, res, next) {
@@ -76,7 +77,7 @@ router.post('/reg', function(req, res, next) {
 
     newUser.save(function(err) {
       if (err) {
-        req.flash('error', err);
+        req.flash('error', '用户信息写入失败');
         return res.redirect('/reg');
       }
 
@@ -89,15 +90,19 @@ router.post('/reg', function(req, res, next) {
 });
 
 router.get('/login', function(req, res, next) {
-
+  res.render('login', {
+    title : '用户登录',
+  });
 });
 
-router.post('login', function(req, res, next) {
+router.post('/login', function(req, res, next) {
 
 });
 
 router.get('/logout', function(req, res, next) {
-
+  req.session.user = null;
+  req.flash('success', '登出成功');
+  res.redirect('/');
 });
 
 module.exports = router;

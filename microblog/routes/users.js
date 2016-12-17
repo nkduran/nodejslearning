@@ -14,18 +14,23 @@ User.prototype.save = function save(callback) {
   };
 
   mongodb.open(function(err, db) {
+
     if(err) {
       return callback(err);
     }
 
     db.collection('users', function(err, collection) {
+
+      console.log('======collect users data, error:' + err);
+
       if (err) {
         mongodb.close();
         return callback(err);
       }
 
-      collection.ensureIndex('name', {unique: true});
+      collection.ensureIndex({'user.name': 1}, {unique: true});
       collection.insert({user, safe:true}, function(err, user) {
+        console.log('======insert users data, error:' + err);
         mongodb.close();
         callback(err, user);
       });
@@ -35,6 +40,8 @@ User.prototype.save = function save(callback) {
 
 User.get = function get(username, callback) {
   mongodb.open(function(err, db) {
+    console.log('======read user document, error:' + err + ', username:' + username);
+
     if (err) {
       return callback(err);
     }
@@ -45,7 +52,10 @@ User.get = function get(username, callback) {
         return callback(err);
       }
 
-      collection.findOne({name: username}, function(err, doc) {
+      collection.findOne({'user.name': username}, function(err, doc) {
+
+        console.log('======find one item from user document, error:' + err + ', doc:' + doc);
+
         mongodb.close();
         if (doc) {
           var user = new User(doc);
@@ -57,10 +67,3 @@ User.get = function get(username, callback) {
     });
   })
 };
-
-/* GET users listing. */
-/*router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
-
-module.exports = router;*/
