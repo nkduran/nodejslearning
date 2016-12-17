@@ -58,7 +58,7 @@ User.get = function get(username, callback) {
 
         mongodb.close();
         if (doc) {
-          var user = new User(doc);
+          var user = new User(doc.user);
           callback(err, user);
         } else {
           callback(err, null);
