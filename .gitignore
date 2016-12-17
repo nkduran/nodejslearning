@@ -35,3 +35,11 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+
+microblog/views/.DS_Store
+
+microblog/.DS_Store
+
+microblog/public/.DS_Store
+
+.DS_Store
