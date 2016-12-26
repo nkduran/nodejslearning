@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var partials = require('express-partials');
 var flash = require('connect-flash');
 var session = require('express-session');
+var fs = require('fs');
 
 var MongoStore = require('connect-mongo')(session);
 var settings = require('./settings');
@@ -48,9 +49,9 @@ app.use(function(req, res, next) {
   res.locals.error = err.length ? err : null;
   res.locals.success = success.length ? success : null;
 
-  console.log('===user:' + res.locals.user);
-  console.log('===error:' + res.locals.error);
-  console.log('===success:' + res.locals.success);
+  //console.log('===user:' + res.locals.user);
+  //console.log('===error:' + res.locals.error);
+  //console.log('===success:' + res.locals.success);
 
   next();
 });
@@ -65,10 +66,14 @@ app.use(routes);
 });*/
 
 // error handlers
+//var accessLogFile = fs.createWriteStream('access.log', {flag: 'a'});
+//var errorLogFile = fs.createWriteStream('error.log', {flag: 'a'});
+
+//app.use(logger('combined', {stream: accessLogFile}));
 
 // development error handler
 // will print stacktrace
-if (app.get('env') === 'development') {
+/*if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
@@ -76,17 +81,16 @@ if (app.get('env') === 'development') {
       error: err
     });
   });
-}
+}*/
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
+/*if (app.get('env') === 'production') {
+  app.use(function(err, req, res, next) {
+    var meta = '[' + new Date() + '] ' + req.url + '\n';
+    errorLogFile.write(meta + error.stack + '\n');
+    next();
   });
-});
-
+}*/
 
 module.exports = app;

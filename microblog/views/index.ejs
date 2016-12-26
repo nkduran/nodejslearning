@@ -1,27 +1,13 @@
-<div class="hero-unit">
-  <h1>欢迎来到 Microblog</h1>
-  <p>Microblog 是一个基于 Node.js 的微博系统.</p>
-  <p>
-    <% if (!locals.user) { %>
+<% if (!user) {%>
+  <div class="hero-unit">
+    <h1>欢迎来到 Microblog</h1>
+    <p>Microblog 是一个基于 Node.js 的微博系统。</p>
+    <p>
       <a class="btn btn-primary btn-large" href="/login">登录</a>
       <a class="btn btn-large" href="/reg">立即注册</a>
-    <% } else { %>
-      <a class="btn btn-primary btn-large" href="/reg">注册</a>
-    <% } %>
-  </p>
-</div>
-
-<div class="row">
-  <div class="span4">
-    <h2>Vivi 说</h2>
-    <p>近乡情更怯，不敢问来人</p>
+    </p>
   </div>
-  <div class="span4">
-    <h2>苏东坡 说</h2>
-    <p>明月几时有，把酒问青天。不知天上宫阙，今夕是何年。我欲乘风归去，唯恐琼楼玉宇，高处不胜寒。</p>
-  </div>
-  <div class="span4">
-    <h2>nkduran 说</h2>
-    <p>我们的征途是星辰大海</p>
-  </div>
-</div>
+<% } else { %>
+  <%- include say %>
+<% } %>
+<%- include posts %>
